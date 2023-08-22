@@ -1,0 +1,102 @@
+---
+title: "Reproducible workflow with `targets`: North Temperate Lakes Ice Cover"
+format: html
+---
+
+In this example we will use the `targets` package to develop a reproducible workflow that let us track changes and determine which part of the workflow needs to be re-run when we modify the data or the analysis we are conducting. 
+
+Our goal is to reproduce the example on the `lterdatasampler` vignette using ice cover and air temperature measurement at the North Temperate Lakes Ice Cover (NTL) LTER site to investigate the relationship between ice cover duration and air temperature in the Fall/Winter.
+
+<https://lter.github.io/lterdatasampler/articles/ntl_icecover_vignette.html>
+
+
+### Set up
+
+The file structure of our project looks like this:
+
+```
+├── R
+│   └── functions.R
+├── README.md
+├── data
+│   ├── ntl_airtemp.csv
+│   └── ntl_icecover.csv
+├── eds214-handson-targets.Rproj
+├── ntl_workflow.qmd
+```
+
+- `R/functions.R`: contains all the processing and analaysis steps we will be performing as functions
+- `data/ntl_airtemp.csv`: air temperature time-series (one for all the lakes)
+- `data/ntl_icecover.csv`: lake ice cover duration (several lakes)
+- `ntl_workflow.qmd`: quarto document used to develop our workflow
+
+### Starting the workflow
+
+```{r}
+library(targets)
+
+# Setting up all the necessary files
+use_targets()
+```
+
+### Traget script file
+
+You need to manually edit `_targets.R` file to:
+
+- Add the necessary libraries to run your analysis
+- List the different components of your workflow and their relationships
+
+In our case we only need the `tidyverse`
+
+Here are the steps or targets of our workflow:
+
+```{r, eval=FALSE}
+  # Air temperature raw data
+  tar_target(file_air, "data/ntl_airtemp.csv", format = "file"),
+  # Lake ice cover raw data
+  tar_target(file_ice, "data/ntl_icecover.csv", format = "file"),
+  # Reading the air temp data
+  tar_target(data_air, get_data(file_air)),
+  # Reading the ice cover data
+  tar_target(data_ice, get_data(file_ice)),
+  # Computing the average air temp from Nov-Apr (freezing season)
+  tar_target(data_avgair, avg_airtemp(data_air)),
+  # Computing the average of ice cover duration across all the lakes
+  tar_target(data_avgice, avg_icecover(data_ice)),
+  # join the two data sets
+  tar_target(joined, join_ntl(data_avgice, data_avgair)),
+  # scatter plot + linear regression
+  tar_target(scatterplot, scatter_ntl(joined))
+```
+
+
+### Inspect the workflow
+
+#### List of the various steps
+```{r}
+tar_manifest()
+```
+#### visualize
+
+```{r}
+tar_visnetwork()
+```
+
+### Run the workflow
+
+```{r}
+tar_make()
+```
+### look at the plot (our output in this example)
+
+```{r}
+tar_read(scatterplot)
+```
+### Tracking changes
+
+Now try to modify parts of your workflow and re run things: 
+
+- one of the data set
+- one of the function
+
+
