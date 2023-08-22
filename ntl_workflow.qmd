@@ -92,6 +92,16 @@ tar_make()
 ```{r}
 tar_read(scatterplot)
 ```
+
+Try to rerun the workflow:
+
+```{r}
+tar_make()
+```
+
+What just happened?!
+
+
 ### Tracking changes
 
 Now try to modify parts of your workflow and re run things: 
