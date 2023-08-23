@@ -110,3 +110,6 @@ Now try to modify parts of your workflow and re run things:
 - one of the function
 
 
+## Reference
+
+- Targets documentation: <https://books.ropensci.org/targets/targets.html>
