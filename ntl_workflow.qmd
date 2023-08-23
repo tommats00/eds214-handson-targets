@@ -113,3 +113,4 @@ Now try to modify parts of your workflow and re run things:
 ## Reference
 
 - Targets documentation: <https://books.ropensci.org/targets/targets.html>
+- awesome pipeline tools: <https://github.com/pditommaso/awesome-pipeline#pipeline-frameworks--libraries>
