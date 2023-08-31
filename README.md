@@ -2,9 +2,9 @@
 
 **Please start by forking this repository**
 
-This repository hosts a workflow example using the `targets` package. The goal is to reproduce the example on the `lterdatasampler` vignette using ice cover and air temperature measurement at the North Temperate Lakes Ice Cover (NTL) LTER site to investigate the relationship between ice cover duration and air temperature in the Fall/Winter.
+This repository hosts a workflow example using the R package `targets`. The goal is to reproduce the example on the `lterdatasampler` vignette using ice cover and air temperature measurement at the North Temperate Lakes Ice Cover (NTL) LTER site to investigate the relationship between ice cover duration and air temperature in the Fall/Winter.
 
-<https://lter.github.io/lterdatasampler/articles/ntl_icecover_vignette.html>
+`lterdatasampler` NTL vignette: <https://lter.github.io/lterdatasampler/articles/ntl_icecover_vignette.html>
 
 
 
